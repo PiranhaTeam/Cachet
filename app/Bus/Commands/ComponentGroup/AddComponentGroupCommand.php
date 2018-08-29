@@ -44,10 +44,19 @@ final class AddComponentGroupCommand
      *
      * @var string[]
      */
+
+    /**
+     * The group this belongs to.
+     *
+     * @var int
+     */
+    public $parent_id;
+
     public $rules = [
         'name'      => 'required|string',
         'order'     => 'int',
         'collapsed' => 'int|between:0,3',
+        'parent_id'  => 'int',
     ];
 
     /**
@@ -56,13 +65,15 @@ final class AddComponentGroupCommand
      * @param string $name
      * @param int    $order
      * @param int    $collapsed
+     * @param int    $parent_id
      *
      * @return void
      */
-    public function __construct($name, $order, $collapsed)
+    public function __construct($name, $order, $collapsed, $parent_id)
     {
         $this->name = $name;
         $this->order = (int) $order;
         $this->collapsed = $collapsed;
+        $this->parent_id = $parent_id;
     }
 }
