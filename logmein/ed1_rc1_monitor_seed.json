@@ -1,0 +1,97 @@
+{
+    "groups": [
+        {
+            "name": "G2M - ED",
+            "groups": [
+                {
+                    "name": "Meeting Services",
+                    "groups": [
+                        {
+                            "name": "Subservices 1",
+                            "groups": [],
+                            "components": [
+                                {
+                                    "name": "Test Service",
+                                    "description": "Service for testing cachet-monitor",
+                                    "type": 0,
+                                    "link": "https://httpstat.us",
+                                    "monitoring_url": "https://httpstat.us/200",
+                                    "expected_body": "200 OK",
+                                    "headers": {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "components": [
+                        {
+                            "name": "Meeting Service",
+                            "description": "meeting-meeted1svc2.cs.qai.expertcity.com",
+                            "type": 1,
+                            "link": "https://globaled1.g2m.test.expertcity.com/meeting",
+                            "monitoring_url": "http://meeted1svc2.cs.qai.expertcity.com:8080/jmx/beans?objectName=com.citrix.meeting:name=functionalStatusMonitor,type=healthcheck",
+                            "expected_body": "Functional=1",
+                            "headers": {}
+                        }
+                    ]
+                }
+            ],
+            "components": []
+        },
+        {
+            "name": "Nucleus",
+            "groups": [],
+            "components": [
+                {
+                    "name": "Overall Status",
+                    "description": "",
+                    "type": 0,
+                    "link": "http://g2wplus-regdiscovery1-rc.avad.expertcity.com:8080/",
+                    "monitoring_url": "http://g2wplus-regdiscovery1-rc.avad.expertcity.com:8080/",
+                    "expected_body": "<td>status</td><td>UP</td>",
+                    "headers": {}
+                },
+                {
+                    "name": "Search Execution Service",
+                    "description": "SEARCHEXECUTIONSERVICE",
+                    "type": 2,
+                    "link": "http://g2wplus-regdiscovery1-rc.avad.expertcity.com:8080/",
+                    "monitoring_url": "http://g2wplus-regdiscovery1-rc.avad.expertcity.com:8080/eureka/apps/SEARCHEXECUTIONSERVICE",
+                    "expected_body": "<status>UP</status>",
+                    "headers": {
+                        "Content-Type": "text/xml"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Panteras",
+            "groups": [],
+            "components": [
+                {
+                    "name": "Overall Status",
+                    "description": "",
+                    "type": 0,
+                    "link": "http://g2wplus-regdiscovery1-rc.avad.expertcity.com:8080/",
+                    "monitoring_url": "http://g2wplus-regdiscovery1-rc.avad.expertcity.com:8080/",
+                    "expected_body": "<td>status</td><td>UP</td>",
+                    "headers": {}
+                },
+                {
+                    "name": "Chat Session State Service",
+                    "description": "g2m-chat-session-state-service",
+                    "type": 3,
+                    "link": "https://g2m-ed1-earth-consul.serversdev.getgo.com/ui/#/us-west-2-ed1-earth-blue/services",
+                    "monitoring_url": "https://g2m-ed1-earth-consul.serversdev.getgo.com/v1/health/checks/g2m-chat-session-state-service",
+                    "expected_body": "\"Status\":\"passing\"",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    }
+                }
+            ]
+        }
+    ],
+    "components": []
+}
