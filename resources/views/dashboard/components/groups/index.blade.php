@@ -26,10 +26,7 @@
                                 <span class="drag-handle"><i class="ion ion-drag"></i></span>
                                 @endif
                                 {{ $group->name }}
-                                <span class="label label-info">{{ $group->all_enabled_components->count() }}</span>
-                                @if($group->parent)
-                                <p><small>{{ trans('dashboard.components.listed_group', ['name' => $group->parent->name]) }}</small></p>
-                                @endif
+                                <span class="label label-info">{{ $group->components->count() }}</span>
                             </h4>
                         </div>
                         <div class="col-xs-6 text-right">

@@ -249,8 +249,7 @@ class ComponentController extends Controller
     public function showAddComponentGroup()
     {
         return View::make('dashboard.components.groups.add')
-            ->withPageTitle(trans('dashboard.components.groups.add.title').' - '.trans('dashboard.dashboard'))
-            ->withGroups(ComponentGroup::all());
+            ->withPageTitle(trans('dashboard.components.groups.add.title').' - '.trans('dashboard.dashboard'));
     }
 
     /**
@@ -264,9 +263,7 @@ class ComponentController extends Controller
     {
         return View::make('dashboard.components.groups.edit')
             ->withPageTitle(trans('dashboard.components.groups.edit.title').' - '.trans('dashboard.dashboard'))
-            ->withGroup($group)
-            ->withGroups(ComponentGroup::whereNotIn('id', $group->all_subgroups_ordered()->get()->pluck('id'))
-                                    ->where('id', '<>', $group->id)->get());
+            ->withGroup($group);
     }
 
     /**
@@ -280,8 +277,7 @@ class ComponentController extends Controller
             $group = dispatch(new AddComponentGroupCommand(
                 Binput::get('name'),
                 Binput::get('order', 0),
-                Binput::get('collapsed'),
-                Binput::get('parent_id')
+                Binput::get('collapsed')
             ));
         } catch (ValidationException $e) {
             return Redirect::route('dashboard.components.groups.add')
@@ -308,8 +304,7 @@ class ComponentController extends Controller
                 $group,
                 Binput::get('name'),
                 $group->order,
-                Binput::get('collapsed'),
-                Binput::get('parent_id')
+                Binput::get('collapsed')
             ));
         } catch (ValidationException $e) {
             return Redirect::route('dashboard.components.groups.edit', ['id' => $group->id])

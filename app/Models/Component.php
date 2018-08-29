@@ -107,15 +107,6 @@ class Component extends Model implements HasPresenter
     ];
 
     /**
-     * Get the group id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
      * Components can belong to a group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

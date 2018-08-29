@@ -30,7 +30,6 @@ class AddComponentGroupCommandHandler
             'name'      => $command->name,
             'order'     => $command->order,
             'collapsed' => $command->collapsed,
-            'parent_id'  => $command->parent_id,
         ]);
 
         event(new ComponentGroupWasAddedEvent($group));

@@ -13,7 +13,6 @@ namespace CachetHQ\Cachet\Console;
 
 use CachetHQ\Cachet\Console\Commands\DemoMetricPointSeederCommand;
 use CachetHQ\Cachet\Console\Commands\DemoSeederCommand;
-use CachetHQ\Cachet\Console\Commands\ED1RC1MonitorSeederCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -27,7 +26,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         DemoMetricPointSeederCommand::class,
         DemoSeederCommand::class,
-        ED1RC1MonitorSeederCommand::class,
     ];
 
     /**

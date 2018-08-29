@@ -30,7 +30,6 @@ class ComponentGroup extends Model implements HasPresenter
     protected $attributes = [
         'order'     => 0,
         'collapsed' => 0,
-        'parent_id'  => 0,
     ];
 
     /**
@@ -42,7 +41,6 @@ class ComponentGroup extends Model implements HasPresenter
         'name'      => 'string',
         'order'     => 'int',
         'collapsed' => 'int',
-        'parent_id'  => 'int',
     ];
 
     /**
@@ -50,7 +48,7 @@ class ComponentGroup extends Model implements HasPresenter
      *
      * @var string[]
      */
-    protected $fillable = ['name', 'order', 'collapsed', 'parent_id'];
+    protected $fillable = ['name', 'order', 'collapsed'];
 
     /**
      * The validation rules.
@@ -73,7 +71,6 @@ class ComponentGroup extends Model implements HasPresenter
         'name',
         'order',
         'collapsed',
-        'parent_id',
     ];
 
     /**
@@ -86,7 +83,6 @@ class ComponentGroup extends Model implements HasPresenter
         'name',
         'order',
         'collapsed',
-        'parent_id',
     ];
 
     /**
@@ -94,7 +90,7 @@ class ComponentGroup extends Model implements HasPresenter
      *
      * @var string[]
      */
-    protected $with = ['enabled_components', 'enabled_components_lowest', 'subgroups'];
+    protected $with = ['enabled_components', 'enabled_components_lowest'];
 
     /**
      * A group can have many components.
@@ -104,35 +100,6 @@ class ComponentGroup extends Model implements HasPresenter
     public function components()
     {
         return $this->hasMany(Component::class, 'group_id', 'id');
-    }
-
-    /**
-     * Get the group id.
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Component groups can be nested in another group.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function parent()
-    {
-        return $this->belongsTo(ComponentGroup::class, 'parent_id');
-    }
-
-    /**
-     * A group can have many sub groups. This gets the immediate subgroups.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subgroups()
-    {
-        return $this->hasMany(ComponentGroup::class, 'parent_id');
     }
 
     /**
@@ -146,7 +113,7 @@ class ComponentGroup extends Model implements HasPresenter
     }
 
     /**
-     * Return all immediate enabled components.
+     * Return all of the enabled components.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -156,76 +123,13 @@ class ComponentGroup extends Model implements HasPresenter
     }
 
     /**
-     * Return all of the subgroups with enabled children.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function active_subgroups()
-    {
-        //TODO: Filter out subgroups without enabled children!
-        $subgroups = $this->subgroups()->orderBy('order');
-        return $subgroups;
-    }
-
-    /**
-     * Return the groups immediate enabled components ordered by status.
+     * Return all of the enabled components ordered by status.
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function enabled_components_lowest()
     {
         return $this->components()->enabled()->orderBy('status', 'desc');
-    }
-
-    /**
-     * Return all nested subgroups below the group.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function all_subgroups()
-    {
-        $all_subgroups = $this->subgroups();
-        foreach($this->subgroups as $subgroup){
-            $all_subgroups = $all_subgroups->union($subgroup->all_subgroups()->toBase());
-        }
-        return $all_subgroups;
-    }
-
-    /**
-     * Return all nested subgroups below the group in order by parent_id.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function all_subgroups_ordered() {
-        return $this->all_subgroups()->orderBy('parent_id', 'asc');
-    }
-
-    /**
-     * Returns all enabled components nested under the group.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function all_enabled_components()
-    {
-        $all_enabled_components = $this->components()->enabled();
-        foreach($this->all_subgroups_ordered as $subgroup){
-            $all_enabled_components = $all_enabled_components->union($subgroup->components()->enabled()->toBase());
-        }
-        return $all_enabled_components->orderBy('order');
-    }
-
-    /**
-     * Returns the lowest component status for all enabled components nested under the group.
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function all_enabled_components_lowest()
-    {
-        $all_enabled_components = $this->components()->enabled();
-        foreach($this->all_subgroups_ordered as $subgroup){
-            $all_enabled_components = $all_enabled_components->union($subgroup->components()->enabled()->toBase());
-        }
-        return $all_enabled_components->orderBy('status', 'desc');
     }
 
     /**

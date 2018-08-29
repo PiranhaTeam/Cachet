@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4871d65e9078b27eb6837d42b81e72c1",
+    "content-hash": "1b91e148a5444bc6bfca93350e1ebc8d",
     "packages": [
         {
             "name": "alt-three/badger",
