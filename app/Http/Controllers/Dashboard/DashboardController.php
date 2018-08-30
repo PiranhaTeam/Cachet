@@ -80,7 +80,7 @@ class DashboardController extends Controller
         $incidents = $this->getIncidents();
         $subscribers = $this->getSubscribers();
         $usedComponentGroups = Component::enabled()->where('group_id', '>', 0)->groupBy('group_id')->pluck('group_id');
-        $componentGroups = ComponentGroup::whereIn('id', $usedComponentGroups)->orderBy('order')->get();
+        $componentGroups = ComponentGroup::where('parent_id', '=', 0)->orderBy('order')->get();
         $ungroupedComponents = Component::enabled()->where('group_id', 0)->orderBy('order')->orderBy('created_at')->get();
 
         $entries = null;
