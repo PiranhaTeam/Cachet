@@ -187,7 +187,7 @@ class CommandSubscriber
      */
     public function onPublishVendors(Command $command)
     {
-        $command->call('vendor:publish' , ['--all']);
+        $command->call('vendor:publish');
     }
 
     /**
