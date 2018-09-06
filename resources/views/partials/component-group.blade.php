@@ -11,7 +11,7 @@
         {{ $componentGroup->name }}
 @endif
         <div class="pull-right">
-            <i class="ion ion-ios-circle-filled text-component-{{ $componentGroup->lowest_status }} {{ $componentGroup->lowest_status_color }}" data-toggle="tooltip" title="{{ $componentGroup->lowest_human_status }}"></i>
+            <i class="ion ion-ios-circle-filled text-component-{{ $componentGroup->status }} {{ $componentGroup->status_color }}" data-toggle="tooltip" title="{{ $componentGroup->human_status }}"></i>
         </div>
     </li>
 
