@@ -30,9 +30,13 @@ class RemoveComponentGroupCommandHandler
         event(new ComponentGroupWasRemovedEvent($group));
 
         // Remove the group id from all component.
-        $group->components->map(function ($component) {
-            $component->update(['group_id' => 0]);
-        });
+        foreach ($group->components as $component) {
+            $component->update(['group_id' => $group->parent_id]);
+        };
+        // Remove the group id from all groups.
+        foreach ($group->subgroups as $subgroup) {
+            $subgroup->update(['parent_id'=>$group->parent_id]);
+        };
 
         $group->delete();
     }
